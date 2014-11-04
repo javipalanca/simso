@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<simulation cycles_per_ms="1000000" duration="100000000" etm="cache">
+	<sched className="../schedulers/EDF.py" overhead="100000" overhead_activate="0" overhead_terminate="0"/>
+	<caches memory_access_time="100">
+		<cache access_time="10" id="1" name="L2" policy="LRU" size="64" type="data"/>
+		<cache access_time="1" id="2" name="L11" policy="LRU" size="4" type="data"/>
+		<cache access_time="1" id="3" name="L12" policy="LRU" size="4" type="data"/>
+		<cache access_time="1" id="4" name="L13" policy="LRU" size="4" type="data"/>
+		<cache access_time="1" id="5" name="L14" policy="LRU" size="4" type="data"/>
+	</caches>
+	<processors>
+		<processor cl_overhead="100" cs_overhead="100" id="1" name="CPU A" speed="1.0">
+			<cache ref="2"/>
+			<cache ref="1"/>
+		</processor>
+		<processor cl_overhead="100" cs_overhead="100" id="2" name="CPU B" speed="1.0">
+			<cache ref="3"/>
+			<cache ref="1"/>
+		</processor>
+		<processor cl_overhead="100" cs_overhead="100" id="3" name="CPU C" speed="1.0">
+			<cache ref="4"/>
+			<cache ref="1"/>
+		</processor>
+		<processor cl_overhead="100" cs_overhead="100" id="4" name="CPU D" speed="1.0">
+			<cache ref="5"/>
+			<cache ref="1"/>
+		</processor>
+	</processors>
+	<tasks>
+		<task ACET="0.0" WCET="40.0" abort_on_miss="no" activationDate="0.0" base_cpi="1.0" deadline="50.0" et_stddev="0.0" id="1" instructions="1300000" list_activation_dates="" mix="0.8" name="TASK T1" period="50.0" preemption_cost="1000" stack="stacks/sdp_0" task_type="Periodic"/>
+		<task ACET="0.0" WCET="9.0" abort_on_miss="no" activationDate="0.0" base_cpi="1.0" deadline="20.0" et_stddev="0.0" id="2" instructions="600000" list_activation_dates="" mix="0.8" name="TASK T2" period="20.0" preemption_cost="0" stack="stacks/sdp_2" task_type="Periodic"/>
+		<task ACET="0.0" WCET="7.0" abort_on_miss="no" activationDate="0.0" base_cpi="1.0" deadline="15.0" et_stddev="0.0" id="3" instructions="500000" list_activation_dates="" mix="0.8" name="TASK T3" period="15.0" preemption_cost="0" stack="stacks/sdp_1" task_type="Periodic"/>
+		<task ACET="0.0" WCET="5.0" abort_on_miss="no" activationDate="0.0" base_cpi="1.0" deadline="15.0" et_stddev="0.0" id="4" instructions="500000" list_activation_dates="" mix="0.8" name="TASK T4" period="15.0" preemption_cost="0" stack="stacks/sdp_8" task_type="Periodic"/>
+		<task ACET="0.0" WCET="2.0" abort_on_miss="no" activationDate="0.0" base_cpi="1.0" deadline="10.0" et_stddev="0.0" id="5" instructions="300000" list_activation_dates="" mix="0.7" name="TASK T5" period="10.0" preemption_cost="0" stack="stacks/sdp_3" task_type="Periodic"/>
+		<task ACET="0.0" WCET="6.0" abort_on_miss="no" activationDate="0.0" base_cpi="1.0" deadline="10.0" et_stddev="0.0" id="6" instructions="500000" list_activation_dates="" mix="0.5" name="TASK T6" period="10.0" preemption_cost="0" stack="stacks/sdp_2" task_type="Periodic"/>
+		<task ACET="0.0" WCET="4.0" abort_on_miss="no" activationDate="0.0" base_cpi="1.0" deadline="10.0" et_stddev="0.0" id="7" instructions="500000" list_activation_dates="" mix="0.4" name="TASK T7" period="10.0" preemption_cost="0" stack="stacks/sdp_4" task_type="Periodic"/>
+		<task ACET="0.0" WCET="3.0" abort_on_miss="no" activationDate="0.0" base_cpi="1.0" deadline="10.0" et_stddev="0.0" id="8" instructions="300000" list_activation_dates="" mix="0.5" name="TASK T8" period="10.0" preemption_cost="0" stack="stacks/sdp_1" task_type="Periodic"/>
+	</tasks>
+</simulation>

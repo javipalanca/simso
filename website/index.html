@@ -1,0 +1,106 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>SimSo - Simulation of Multiprocessor Scheduling with Overheads</title>
+    
+    <link rel="stylesheet" href="doc/_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="doc/_static/pygments.css" type="text/css" />
+    
+    <link rel="top" title="SimSo" href="#" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="#">SimSo</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+<div class="section" id="simso-simulation-of-multi-processor-scheduling-with-overheads">
+<h1>SimSo - Simulation of Multiprocessor Scheduling with Overheads</h1>
+<p>SimSo is a scheduling simulator for real-time multiprocessor architectures that takes into account some scheduling overheads (scheduling decisions, context switches) and the impact of caches through statistical models. Based on a Discrete-Event Simulator (SimPy), it allows quick simulations and a fast prototyping of scheduling policies using Python. Currently, more than <a href="doc/introduction.html#available-schedulers">25 popular schedulers are available</a>.</p>
+<div class="section" id="documentation">
+<h2>Documentation</h2>
+<p>You can access the documentation here: <a href="doc/">Documentation of SimSo</a>. You will find tutorials that should help you to start.</p>
+<p>Feel free to send me an email if you seek assistance to get started: maxime.cheramy@laas.fr</p>
+</div>
+<div class="section" id="publications">
+	<h2>Publications</h2>
+
+	The general presentation of the tool can be found in the following paper published at WATERS:
+
+	<ul>
+		<li><b>SimSo: A Simulation Tool to Evaluate Real-Time Multiprocessor Scheduling Algorithms</b><br/>
+	Maxime Chéramy, Pierre-Emmanuel Hladik and Anne-Marie Déplanche. In proceedings of the 5th International Workshop on Analysis Tools and Methodologies for Embedded and Real-time Systems (WATERS). July 2014. (<a href="slides_waters.pdf">slides</a>, <a href="poster_ecrts.pdf">poster</a>)</li>
+	</ul>
+
+	The use of the WCET in the simulation was discussed at SIES 2014 during the WiP session.
+	<ul>
+	<li>
+	<b>Simulation of real-time scheduling with various execution time models</b><br/>
+	Maxime Chéramy, Pierre-Emmanuel Hladik, Anne-Marie Déplanche, and Sébastien Dubé. In proceedings of the WiP session of SIES, June 2014. (<a href="slides_sies.pdf">slides</a>, <a href="poster_sies.pdf">poster</a>)
+	</li>
+</ul>
+
+	The design of SimSo and in particular the way we integrate the cache effects in the simulation was presented at a conference focusing on simulation.
+
+	<ul><li>
+		<b>Simulation of real-time multiprocessor scheduling with overheads</b><br/>
+		Maxime Chéramy, Anne-Marie Déplanche, and Pierre-Emmanuel Hladik. In proceedings of SIMULTECH, 2013.
+	</li></ul>
+</div>
+<div class="section" id="download">
+<h2>Download</h2>
+<ul>
+<li><a href="simulator.tar.gz">Sources (.tar.gz)</a> Last update: 18/10/2014</li>
+<li><a href="setup_simso.exe">Windows Executable Binary (64bits)</a> Last update: 15/04/2014</li>
+<li><a href="python-simso_0.4-1_all.deb">Debian / Ubuntu package</a> Last update: 18/10/2014</li>
+<!--
+<li><del><a href="simulator-macos.zip">Executable MacOS 10.6+ (64bits)</a> Last update: 12/04/2013</del></li>
+<li><del><a href="simulator-bin.tar.gz">Executable Linux (64bits)</a> Last update: 17/06/2013</del></li>
+<li><del><a href="simulator-x86.tar.gz">Executable Linux (32bits)</a> Last update: 17/06/2013</del></li>
+-->
+</ul>
+<p>Since it's quite easy to run SimSo from the sources on the Mac OS and Linux plateforms, it has been decided to build the binaries less often. If you really need a binary file for your system, send me an email.</p>
+<p>Please read the <a href="doc/">documentation</a> for help regarding the installation.</p>
+</div>
+<div class="section" id="screenshot">
+<h2>Screenshot</h2>
+<p><img src="simu.png"/></p>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="#">SimSo</a></li> 
+      </ul>
+    </div>
+
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48834296-1', 'laas.fr');
+    ga('send', 'pageview');
+
+	</script>
+  </body>
+</html>

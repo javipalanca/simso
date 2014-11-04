@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<simulation cycles_per_ms="1000000" duration="1000000000" etm="acet">
+	<sched className="../schedulers/RUN.py" overhead="0"/>
+	<caches memory_access_time="100"/>
+	<processors>
+		<processor cl_overhead="0" cs_overhead="0" id="1" name="CPU 1"/>
+		<processor cl_overhead="0" cs_overhead="0" id="2" name="CPU 2"/>
+		<processor cl_overhead="0" cs_overhead="0" id="3" name="CPU 3"/>
+	</processors>
+	<tasks>
+		<task ACET="1.0" WCET="3.0" abort_on_miss="yes" activationDate="0.0" base_cpi="1.0" deadline="5.0" et_stddev="0.0" id="1" instructions="0" mix="0.5" name="TASK T1" period="5.0" periodic="yes"/>
+		<task ACET="5.0" WCET="6.0" abort_on_miss="yes" activationDate="0.0" base_cpi="1.0" deadline="10.0" et_stddev="0.0" id="2" instructions="0" mix="0.5" name="TASK T2" period="10.0" periodic="yes"/>
+		<task ACET="8.0" WCET="9.0" abort_on_miss="yes" activationDate="0.0" base_cpi="1.0" deadline="15.0" et_stddev="1.0" id="3" instructions="0" mix="0.5" name="TASK T3" period="15.0" periodic="yes"/>
+		<task ACET="5.0" WCET="6.0" abort_on_miss="yes" activationDate="0.0" base_cpi="1.0" deadline="10.0" et_stddev="0.0" id="4" instructions="0" mix="0.5" name="TASK T4" period="10.0" periodic="yes"/>
+		<task ACET="2.0" WCET="3.0" abort_on_miss="yes" activationDate="0.0" base_cpi="1.0" deadline="5.0" et_stddev="0.0" id="5" instructions="0" mix="0.5" name="TASK T5" period="5.0" periodic="yes"/>
+	</tasks>
+</simulation>

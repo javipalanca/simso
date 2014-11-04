@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<simulation cycles_per_ms="1000000" duration="100000000" etm="wcet">
+	<sched className="../schedulers/P_EDF.py" overhead="100000" overhead_activate="0" overhead_terminate="0"/>
+	<caches memory_access_time="100">
+		<cache access_time="1" id="1" name="L2" policy="LRU" size="80" type="data"/>
+		<cache access_time="1" id="2" name="L11" policy="LRU" size="4" type="data"/>
+		<cache access_time="1" id="3" name="L12" policy="LRU" size="4" type="data"/>
+	</caches>
+	<processors>
+		<processor cl_overhead="100" cs_overhead="100" id="1" name="CPU A">
+			<cache ref="2"/>
+			<cache ref="1"/>
+		</processor>
+		<processor cl_overhead="100" cs_overhead="100" id="2" name="CPU B">
+			<cache ref="3"/>
+			<cache ref="1"/>
+		</processor>
+	</processors>
+	<tasks>
+		<task ACET="0" WCET="8.0" abort_on_miss="no" activationDate="0.0" base_cpi="1.0" deadline="30.0" et_stddev="0" id="1" instructions="3000000" mix="0.2" name="Ptask T1" period="30.0" periodic="yes" stack="stacks/stack1"/>
+		<task ACET="0" WCET="10.0" abort_on_miss="no" activationDate="1.0" base_cpi="1.0" deadline="25.0" et_stddev="0" id="2" instructions="400000" mix="0.6" name="Ptask T2" period="25.0" periodic="yes" stack="stacks/stack2"/>
+		<task ACET="0" WCET="15.0" abort_on_miss="no" activationDate="0.0" base_cpi="1.0" deadline="25.0" et_stddev="0" id="3" instructions="300000" mix="0.5" name="Ptask T3" period="25.0" periodic="yes" stack="stacks/stack3"/>
+	</tasks>
+</simulation>

@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<simulation cycles_per_ms="1000000" duration="1000000000" use_wcet="true">
+	<sched className="../schedulers/EDF_mono.py" overhead="0"/>
+	<caches memory_access_time="100"/>
+	<processors>
+		<processor cl_overhead="0" cs_overhead="0" id="1" name="CPU 1"/>
+	</processors>
+	<tasks>
+		<task WCET="1.4" abort_on_miss="no" activationDate="0.0" base_cpi="1.0" deadline="7.0" id="1" instructions="30000" mix="0.5" name="TASK T1" period="7.0" periodic="yes"/>
+		<task WCET="3.0" abort_on_miss="no" activationDate="2.0" base_cpi="1.0" deadline="5.0" id="2" instructions="30000" mix="0.3" name="TASK T2" period="5.0" periodic="yes"/>
+		<task WCET="2.0" abort_on_miss="no" activationDate="0.0" base_cpi="1.0" deadline="10.0" id="3" instructions="50000" mix="0.6" name="TASK T3" period="10.0" periodic="yes"/>
+	</tasks>
+</simulation>

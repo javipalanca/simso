@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+targetNamespace="http://www.w3schools.com"
+xmlns="http://www.w3schools.com"
+elementFormDefault="qualified">
+
+<xs:simpleType name="ratio">
+  <xs:restriction base="xs:float">
+    <xs:minInclusive value="0.0"/>
+    <xs:maxInclusive value="1.0"/>
+  </xs:restriction>
+</xs:simpleType>
+
+<xs:element name="caches">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="cache" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="sched">
+  <xs:complexType>
+    <xs:attribute name="className" type="xs:string"/>
+    <xs:attribute name="overhead" type="xs:integer"/>
+    <xs:attribute name="overhead_activate" type="xs:integer"/>
+    <xs:attribute name="overhead_terminate" type="xs:integer"/>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="cache">
+  <xs:complexType>
+    <xs:attribute name="id" type="xs:integer"/>
+    <xs:attribute name="name" type="xs:string"/>
+    <xs:attribute name="type" type="xs:string"/>
+    <xs:attribute name="size" type="xs:integer"/>
+    <xs:attribute name="penalty" type="xs:integer"/>
+  </xs:complexType>
+</xs:element>
+
+
+<xs:element name="processor">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element name="cache" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:attribute name="ref" type="xs:integer"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:integer"/>
+    <xs:attribute name="name" type="xs:string"/>
+    <xs:attribute name="cl_overhead" type="xs:integer"/>
+    <xs:attribute name="cs_overhead" type="xs:integer"/>
+    <xs:attribute name="mem_penalty" type="xs:integer"/>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="processors">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="processor" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="migration_overhead" type="xs:integer"/>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="task">
+  <xs:complexType>
+    <xs:attribute name="id" type="xs:integer"/>
+    <xs:attribute name="name" type="xs:string"/>
+    <xs:attribute name="period" type="xs:float"/>
+    <xs:attribute name="deadline" type="xs:float"/>
+    <xs:attribute name="activationDate" type="xs:float"/>
+    <xs:attribute name="WCET" type="xs:float"/>
+    <xs:attribute name="instructions" type="xs:integer"/>
+    <xs:attribute name="stack" type="xs:string"/>
+    <xs:attribute name="mix" type="ratio"/>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="tasks">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="task" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="simulation">
+  <xs:complexType>
+    <xs:sequence>
+	<xs:element ref="sched"/>
+	<xs:element ref="caches"/>
+	<xs:element ref="processors"/>
+	<xs:element ref="tasks"/>
+    </xs:sequence>
+    <xs:attribute name="duration" type="xs:integer" use="required"/>
+    <xs:attribute name="cycles_per_ms" type="xs:integer" use="required"/>
+  </xs:complexType>
+</xs:element>
+
+</xs:schema> 

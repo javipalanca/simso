@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<simulation cycles_per_ms="1000000" duration="15000000000" etm="wcet">
+	<sched className="../schedulers/Fixed_PEDF.py" overhead="0"/>
+	<caches memory_access_time="86">
+		<cache access_time="2" id="1" name="L11" policy="LRU" size="32" type="data"/>
+		<cache access_time="2" id="2" name="L12" policy="LRU" size="32" type="data"/>
+		<cache access_time="26" id="3" name="L2" policy="LRU" size="4096" type="data"/>
+	</caches>
+	<processors>
+		<processor cl_overhead="0" cs_overhead="0" id="1" name="CPU 1">
+			<cache ref="1"/>
+			<cache ref="3"/>
+		</processor>
+		<processor cl_overhead="0" cs_overhead="0" id="2" name="CPU 2">
+			<cache ref="1"/>
+			<cache ref="3"/>
+		</processor>
+		<processor cl_overhead="0" cs_overhead="0" id="3" name="CPU 3">
+			<cache ref="1"/>
+			<cache ref="3"/>
+		</processor>
+		<processor cl_overhead="0" cs_overhead="0" id="4" name="CPU 4">
+			<cache ref="2"/>
+			<cache ref="3"/>
+		</processor>
+	</processors>
+	<tasks>
+		<field name="cpu" type="int"/>
+		<task ACET="0.0" WCET="52.0" abort_on_miss="no" activationDate="0.0" base_cpi="2.64567515" cpu="1" deadline="1000000000.0" et_stddev="0.0" id="1" instructions="12421371" mix="0.40731856411" name="qsortsmall" period="1000.0" periodic="yes"/>
+		<task ACET="0.0" WCET="6800.0" abort_on_miss="no" activationDate="52.0" base_cpi="2.3266001" cpu="3" deadline="1000000000.0" et_stddev="0.0" id="2" instructions="2444420094" mix="0.222840609246" name="Susan" period="10000.0" periodic="yes"/>
+		<task ACET="0.0" WCET="390.0" abort_on_miss="no" activationDate="7000.0" base_cpi="2.7641263" cpu="1" deadline="1000000000.0" et_stddev="0.0" id="3" instructions="113132040" mix="0.271900683485" name="fftsmall" period="1000.0" periodic="yes"/>
+		<task ACET="0.0" WCET="2720.0" abort_on_miss="no" activationDate="7000.0" base_cpi="2.79341246" cpu="2" deadline="1000000000.0" et_stddev="0.0" id="4" instructions="759944324" mix="0.295076117971" name="fftlarge" period="10000.0" periodic="yes"/>
+	</tasks>
+</simulation>
