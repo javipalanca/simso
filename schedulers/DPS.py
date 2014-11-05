@@ -14,14 +14,6 @@ class DPS(Scheduler):
         self.queue_index = 0
         self.default_quantum = 10
         self.window_queue = []
-        
-        #self.window_timer = Timer(self.sim, DPS.reset_window,
-        #                  (self, self.processors[0]), self.windowsize,
-        #                  one_shot=False, cpu=self.processors[0])
-                          
-        #self.window_timer.start()
-        
-        self.processors[0].resched()
 
     def fill_window_queue(self):
         while sqrt(self.windowsize) > len(self.window_queue) and len(self.ready_list) > 0:
@@ -35,11 +27,7 @@ class DPS(Scheduler):
         self.window_queue = [job for job in self.window_queue if job.is_active()]
         
         # fill the window queue
-        self.fill_window_queue()
-            
-        print "RESET WINDOW", self.sim.now_ms()
-        
-        #cpu.resched()
+        self.fill_window_queue()        
         
     def reschedule(self, cpu):
         cpu.resched()
@@ -58,10 +46,9 @@ class DPS(Scheduler):
         if job in self.ready_list:
             self.ready_list.remove(job)
         self.preempt_timer.stop()
-        print "JOB FINISHED", job.name, self.queue_index
 
     def schedule(self, cpu):
-        now = ceil(self.sim.now_ms())
+        now = self.sim.now_ms()
         remaining_time_in_window = self.windowsize - (now % self.windowsize)
         if now % self.windowsize == 0:
             self.reset_window(cpu)
@@ -70,37 +57,35 @@ class DPS(Scheduler):
                 current_job = self.window_queue[self.queue_index]
                 # if job has still reserved cpu time
                 if current_job.is_running() and now < current_job.absolute_burst:
-                    print "GOT CURRENT JOB"
                     return (current_job, cpu)
             except:
                 pass            
-            # burst has finished and next priority job is selected
+            # burst has finished and next prioritary job is selected
             try:
                 job = self.window_queue[self.queue_index]
                 priority = self.queue_index + 1
                 burst = self.windowsize / 2**priority
-                print "GOT NEW JOB", job.name, priority, burst
             except Exception as e:
-                if len(self.ready_list + self.window_queue):
-                    job = choice(self.ready_list+self.window_queue)
+                available = [job for job in self.window_queue if job.is_active()] + self.ready_list
+                if len(available):
+                    # Slack time, choose random job
+                    job = choice(available)
                     burst = self.default_quantum
-                    print "GOT RANDOM JOB", burst
                 else:
-                    job = None
-                    print "GONE IDLE"
+                    # Idle
                     return (None, cpu)
 
-            if burst == 0: # slack time!
+            if burst == 0: # gain time
                 if self.ready_list:
                     job = choice(self.ready_list)
                 burst = min(self.default_quantum, remaining_time_in_window)
-            else:
+            else: # adjust burst
                 burst = min(remaining_time_in_window, (min(burst, job.ret)))
 
             if burst == 0 and remaining_time_in_window > 0:
                 burst = remaining_time_in_window
 
-            print "[{3}] JOB {0}, scheduled with burst {1} until {2}".format(job.name, burst, now+burst, now)
+            #print "[{3}] JOB {0}, scheduled with burst {1} until {2}".format(job.name, burst, now+burst, now)
             self.preempt_timer = Timer(self.sim, DPS.reschedule,
                               (self, self.processors[0]), ceil(burst),
                               one_shot=True, cpu=self.processors[0])
