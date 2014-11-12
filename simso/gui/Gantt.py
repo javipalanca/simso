@@ -211,6 +211,22 @@ class GanttCanvas(QWidget):
         qp.drawText(self.convX(start_x) + 25, y + 30, text)
         qp.setPen(pen)
 
+    def plot_vert_separator_graph(self, qp, x_line, c):
+        if x_line < self._start_date or x_line > self._end_date:
+            return
+
+        x, y = self.origGraph(c)
+
+        qp.save()
+        pen = qp.pen()
+        qp.setPen(QColor(102, 51, 0))
+        qp.setBrush(QColor(102, 51, 0))
+        qp.setPen(QPen(Qt.DashLine))
+        qp.setRenderHint(QPainter.Antialiasing)
+        line = QLineF(x + self.convX(x_line), 5, x + self.convX(x_line), self._height - 10)
+        qp.drawLine(line)
+        qp.setPen(pen)
+
     def get_color(self, i):
         colors = [(150, 50, 0), (20, 180, 20), (50, 200, 250), (240, 230, 0),
                   (190, 0, 250), (50, 50, 200), (238, 135, 178),
@@ -242,6 +258,8 @@ class GanttCanvas(QWidget):
 
         substep = step // 5
 
+        separators = []
+
         # Plot processors
         for processor in [x for x in sim.processors
                           if x in self._selected_items]:
@@ -262,6 +280,8 @@ class GanttCanvas(QWidget):
                     ncolor = (QColor(150, 150, 150), Qt.SolidPattern)
                 elif evt[1].event == ProcEvent.IDLE:
                     ncolor = None
+                elif evt[1].event == ProcEvent.SEPARATOR:
+                    separators.append((current_date, c))
 
                 if ncolor != color:
                     if current_date > x1 and color:
@@ -344,6 +364,10 @@ class GanttCanvas(QWidget):
                 elif evt[1].event == JobEvent.ABORTED:
                     self.plot_circle_graph(
                         qp, current_date, QColor(255, 0, 0), c)
+
+        # Plot separators
+        for sep, c in separators:
+            self.plot_vert_separator_graph(qp, sep, c)
 
     def saveImg(self):
         imageFile = QFileDialog.getSaveFileName(

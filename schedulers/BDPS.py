@@ -2,7 +2,7 @@
 Benefits-based Deadline Prediction Scheduler algorithm for uniprocessor architectures.
 """
 import math
-from simso.core import Scheduler, Timer, JobEvent
+from simso.core import Scheduler, Timer, JobEvent, ProcEvent
 from random import choice
 from collections import defaultdict
 
@@ -85,6 +85,7 @@ class BDPS(Scheduler):
         remaining_time_in_window = float("{0:.2f}".format(self.windowsize - (now % self.windowsize)))
         if now % self.windowsize == 0:
             self.reset_window(cpu)
+            cpu.monitor.observe(ProcEvent(ProcEvent.SEPARATOR))
 
         if remaining_time_in_window > 0:
             try:

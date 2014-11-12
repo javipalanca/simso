@@ -5,6 +5,7 @@ class ProcEvent(object):
     RUN = 1
     IDLE = 2
     OVERHEAD = 3
+    SEPARATOR = 7
 
     def __init__(self, event=0, args=None):
         self.event = event
