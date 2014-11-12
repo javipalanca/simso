@@ -55,6 +55,9 @@ class Job(Process):
         """
         return self._end_date is None
 
+    def add_custom_event(self, event, data=None):
+        self._monitor.observe(event, data)
+
     def _on_activate(self):
         self._monitor.observe(JobEvent(self, JobEvent.ACTIVATE))
         self._sim.logger.log(self.name + " Activated.", kernel=True)

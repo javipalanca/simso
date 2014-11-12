@@ -3,6 +3,7 @@ from PyQt4.QtGui import QDialog, QVBoxLayout, QListWidget, QToolBar, QWidget, \
     QHBoxLayout, QPushButton, qApp, QStyle, QSizePolicy, QBrush,\
     QScrollArea, QFileDialog, QPainter, QColor, QPen, QFont,\
     QImage, QListWidgetItem
+from Qt import QtCore
 
 from .QxtSpanSlider import QxtSpanSliderWidget
 
@@ -202,6 +203,14 @@ class GanttCanvas(QWidget):
         qp.drawEllipse(x + self.convX(x_circle) - 1, y + 50 - 1, 3, 3)
         qp.restore()
 
+    def plot_text_graph(self, qp, start_x, text, c):
+        x, y = self.origGraph(c)
+        pen = qp.pen()
+        qp.setPen(QColor(0, 0, 0))
+        qp.setFont(QFont('Decorative', 10))
+        qp.drawText(self.convX(start_x) + 25, y + 30, text)
+        qp.setPen(pen)
+
     def get_color(self, i):
         colors = [(150, 50, 0), (20, 180, 20), (50, 200, 250), (240, 230, 0),
                   (190, 0, 250), (50, 50, 200), (238, 135, 178),
@@ -288,6 +297,13 @@ class GanttCanvas(QWidget):
                         color = None
                     elif evt[1].event == JobEvent.ABORTED:
                         color = None
+                    elif evt[1].event == JobEvent.TEXTLABEL:
+                        color = None
+                        try:
+                            text = evt[1].data
+                        except:
+                            text = "Text Label"
+                        self.plot_text_graph(qp, current_date, text, c)
 
                     x1 = current_date
 
