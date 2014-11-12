@@ -23,7 +23,7 @@ class DPS(Scheduler):
         self.window_id += 1
         self.queue_index = 0
 
-        #remove finished jobs
+        # remove finished jobs
         self.window_queue = [job for job in self.window_queue if job.is_active()]
         
         # fill the window queue
@@ -34,9 +34,9 @@ class DPS(Scheduler):
 
     def on_activate(self, job):
         self.ready_list.append(job)
-        priority = len(self.window_queue) + self.ready_list.index(job) + 1
+        job.priority = len(self.window_queue) + self.ready_list.index(job) + 1
         # deadline prediction
-        job._absolute_deadline = job._task._task_info.deadline = ceil(job._activation_date + (2**priority) * job.wcet)
+        job._absolute_deadline = job._task._task_info.deadline = ceil(job._activation_date + (2**job.priority) * job.wcet)
         prev = len(self.window_queue)
         self.fill_window_queue()
         if prev == 0 and len(self.window_queue) > 0:
@@ -63,7 +63,7 @@ class DPS(Scheduler):
             # burst has finished and next prioritary job is selected
             try:
                 job = self.window_queue[self.queue_index]
-                priority = self.queue_index + 1
+                priority = job.priority
                 burst = self.windowsize / 2**priority
             except Exception as e:
                 available = [job for job in self.window_queue if job.is_active()] + self.ready_list
@@ -75,17 +75,16 @@ class DPS(Scheduler):
                     # Idle
                     return (None, cpu)
 
-            if burst == 0: # gain time
+            if burst == 0:  # gain time
                 if self.ready_list:
                     job = choice(self.ready_list)
                 burst = min(self.default_quantum, remaining_time_in_window)
-            else: # adjust burst
+            else:  # adjust burst
                 burst = min(remaining_time_in_window, (min(burst, job.ret)))
 
             if burst == 0 and remaining_time_in_window > 0:
                 burst = remaining_time_in_window
 
-            #print "[{3}] JOB {0}, scheduled with burst {1} until {2}".format(job.name, burst, now+burst, now)
             self.preempt_timer = Timer(self.sim, DPS.reschedule,
                               (self, self.processors[0]), ceil(burst),
                               one_shot=True, cpu=self.processors[0])
